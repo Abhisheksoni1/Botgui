@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DigiShop - Responsive HTML5 Template</title>
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+<!--================================================
+                **** CSS Files ****
+==================================================-->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/icofont.css" rel="stylesheet">
+<link href="css/bootstrap-navbar.css" rel="stylesheet">
+<link href="css/magnific-popup.css" rel="stylesheet" >
+<link href="css/animate.css" rel="stylesheet">
+<link href="css/owl.carousel.min.css" rel="stylesheet">
+<link href="css/owl.theme.default.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+</head>
+<body>
+<nav id="navbar-2" class="navbar navbar-expand-lg btco-hover-menu navbar-2">
+  <div class="container"> <a class="navbar-brand" href="index.html"><img id="logo-2" class="logo" src="images/logo-2.png" alt="logo-1"></a>
+   
+  </div>
+</nav>
+<header class="header-3 cs">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="intro-text">
+          <h1 class="wow fadeInUp comming-soon">Website is Comming Soon</h1>
+          <p>Get Digital items in an affordable range. We are selling Premium Digital products for 
+            Business to Business & Business to Clients.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="header-3-search">
+          <h1 id="demo" class="comming-soon wow fadeInUp"></h1>
+          <form action="index.html" method="post" class="subscribe-form">
+            <input type="text" name="subscribe" id="subscribe" class="subscribe-text" placeholder="Subscribe Your Mail ID">
+            <button class="subscribe-btn" type="submit">Subscribe</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--================================================
+                **** JS Files ****
+==================================================-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/bootstrap-navbar.js"></script> 
+<script src="js/wow.min.js"></script> 
+<script src="js/numscroller-1.0.js"></script>
+<script src="js/magnific-popup.min.js"></script>
+<script src="js/jquery.isotope.min.js"></script> 
+<script src="js/owl.carousel.js"></script>
+<script src="js/main.js"></script>
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Apr 5, 2018 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+    // Get todays date and time
+    var now = new Date().getTime();
+    
+    // Find the distance between now an the count down date
+    var distance = countDownDate - now;
+    
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML = days + "d  &nbsp;" + hours + "h  &nbsp;"
+    + minutes + "m  &nbsp;" + seconds + "s  &nbsp;";
+    
+    // If the count down is over, write some text 
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+}, 1000);
+</script>
+</body>
+</html>
