@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,24 +6,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DigiShop - Responsive HTML5 Template</title>
-<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 
 <!--================================================
                 **** CSS Files ****
 ==================================================-->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/icofont.css" rel="stylesheet">
-<link href="css/bootstrap-navbar.css" rel="stylesheet">
-<link href="css/magnific-popup.css" rel="stylesheet" >
-<link href="css/animate.css" rel="stylesheet">
-<link href="css/owl.carousel.min.css" rel="stylesheet">
-<link href="css/owl.theme.default.min.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-<link href="css/responsive.css" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/icofont.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-navbar.css' %}" rel="stylesheet">
+<link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" >
+<link href="{% static 'css/animate.css' %}" rel="stylesheet">
+<link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet">
+<link href="{% static 'style.css' %}" rel="stylesheet">
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
 </head>
 <body>
 <nav id="navbar-4" class="navbar navbar-expand-lg btco-hover-menu navbar-4">
-  <div class="container"> <a class="navbar-brand" href="index.html"><img id="logo-2" class="logo" src="images/logo-2.png" alt="logo-1"></a>
+  <div class="container"> <a class="navbar-brand" href="index.html"><img id="logo-2" class="logo" src="{% static 'images/logo-2.png' %}" alt="logo-1"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
@@ -116,7 +117,7 @@
     <div class="footer-top">
       <div class="row">
       	<div class="col-md-3">
-          <div class="footer-top-item"> <a class="navbar-brand" href="home-1.html"><img class="logo" src="images/logo-1.png" alt="logo-1"></a>
+          <div class="footer-top-item"> <a class="navbar-brand" href="index.html"><img class="logo" src="{% static 'images/logo-1.png' %}" alt="logo-1"></a>
             <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical</p>
           </div>
            <div class="footer-bottom-item">
@@ -134,8 +135,8 @@
           <div class="footer-top-item">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Services</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="services.html">Services</a></li>
               <li><a href="#">Copyrights</a></li>
               <li><a href="#">Licenses</a></li>
               <li><a href="#">Privacy Policy</a></li>
@@ -159,10 +160,10 @@
             <h4>Account</h4>
             <ul>
               	<li><a href="">My Account</a></li>
-                <li><a href="">Sign In</a></li>
-                <li><a href="">Register</a></li>
+                <li><a href="login-signup.html">Sign In</a></li>
+                <li><a href="login-signup.html">Register</a></li>
                 <li><a href="">Order History</a></li>
-                <li><a href="">Shopping Cart</a></li>
+                <li><a href="cart.html">Shopping Cart</a></li>
             </ul>
           </div>
         </div>
@@ -177,7 +178,7 @@
           </div>
         </div>
         <div class="col-md-6">
-         	<div class="footer-bottom-item alignright"><img class="pg" src="images/pg.png" alt="Payment Gateways"></div>
+         	<div class="footer-bottom-item alignright"><img class="pg" src="{% static 'images/pg.png' %}" alt="Payment Gateways"></div>
         </div>
       </div>
     </div>
@@ -187,14 +188,14 @@
 <!--================================================
                 **** JS Files ****
 ==================================================-->
-<script src="js/jquery.min.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/bootstrap-navbar.js"></script> 
-<script src="js/wow.min.js"></script> 
-<script src="js/numscroller-1.0.js"></script>
-<script src="js/magnific-popup.min.js"></script>
-<script src="js/jquery.isotope.min.js"></script> 
-<script src="js/owl.carousel.js"></script>
-<script src="js/main.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script> 
+<script src="{% static 'js/bootstrap.min.js' %}"></script> 
+<script src="{% static 'js/bootstrap-navbar.js' %}"></script> 
+<script src="{% static 'js/wow.min.js' %}"></script> 
+<script src="{% static 'js/numscroller-1.0.js' %}"></script>
+<script src="{% static 'js/magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/jquery.isotope.min.js' %}"></script> 
+<script src="{% static 'js/owl.carousel.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
