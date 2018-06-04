@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from bot import views
+from django.contrib.auth.views import logout
+
+
 
 urlpatterns = [
+    url(r'^sign-out/$', logout, {'template_name': 'index.html', 'next_page': '/'}, name='sign-out'),
     url(r'^$', views.index, name='index'),
     url(r'^services', views.services, name='services'),
     url(r'^index', views.index, name='index'),
@@ -34,6 +38,9 @@ urlpatterns = [
     url(r'^product-grid', views.product_grid, name='product-grid'),
     url(r'^product-list', views.product_list, name='product-list'),
     url(r'^support', views.support, name='support'),
+    url(r'^logout', views.logout_view, name='logout'),
+    url(r'^login', views.login_view, name='login'),
+    url(r'^email_subscribe', views.email_subscribe, name='email_subscribe'),
     # url(r'^time$', views.time, name='time'),
     # url('^symbols', views.symbols, name='symbols'),
     # url('^search', views.search, name='search'),
