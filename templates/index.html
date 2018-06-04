@@ -39,7 +39,12 @@
         <li class="nav-item"> <a class="nav-link" href="contact.html"> Contact</a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"> <a class="nav-link" href="login-signup.html"> Login | Signup </a></li>
+        {% if user.is_authenticated %}
+        <li class="nav-item"> <a class="nav-link" href="{% url 'login-signup' %}"> Welcome {{ user.username }}</a></li>
+        <li class="nav-item"> <a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+    {% else %}
+        <li class="nav-item"> <a class="nav-link" href="{% url 'login-signup' %}"> Login | Signup </a></li>
+    {% endif %}
         <li class="nav-item"> <a class="nav-link" href="cart.html"> <i class="icofont icofont-cart-alt"></i> </a></li>
       </ul>
     </div>
@@ -205,9 +210,9 @@
           <form action="#" method="post">
             <div class="form-group">
               <div class="input-group">
-                <input type="text" name="newsletter_email" class="form-control form-control-lg" placeholder="Email Address">
+                <input type="text" name="newsletter_email" id="newsletter_email" class="form-control form-control-lg" placeholder="Email Address">
                 <span class="input-group-addon">
-                <input type="submit" class="btn btn-success btn-lg" value="Subscribe">
+                <input type="button" onclick="subscribe()" class="btn btn-success btn-lg" value="Subscribe">
                 </span> </div>
             </div>
           </form>
@@ -248,5 +253,19 @@
 <script src="{% static 'js/particles.min.js' %}"></script>
 <script src="{% static 'js/app.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script>
+  function subscribe(){
+  if ($('#newsletter_email').val()){
+  <!--alert('hello');-->
+  $.post("/email_subscribe", {'email':$("#newsletter_email").val()}, function(data){
+  alert('Hi');
+  });
+  }
+  else{
+  alert('please enter email to subscribe');
+  }
+  }
+</script>
 </body>
 </html>
+
