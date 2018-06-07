@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DigiShop - Responsive HTML5 Template</title>
+<title>Trade Bot</title>
 <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
 
 <!--================================================
@@ -22,9 +22,31 @@
 <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
 </head>
 <body>
-<nav id="navbar-2" class="navbar navbar-expand-lg btco-hover-menu navbar-2">
-  <div class="container"> <a class="navbar-brand" href="index.html"><img id="logo-2" class="logo" src="{% static 'images/logo-2.png' %}" alt="logo-1"></a>
-   
+<nav id="navbar-1" class="navbar navbar-expand-lg btco-hover-menu navbar-1">
+  <div class="container"> <a class="navbar-brand" href="index.html">
+    <img id="logo" class="logo" src="{% static 'images/logo-1.png' %}" alt="logo-1"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+            aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item "><a class="nav-link dropdown-toggle" href="index.html"> Home</a></li>
+        <li class="nav-item "><a class="nav-link dropdown-toggle" href="services.html"> Services</a></li>
+
+        <li class="nav-item "><a class="nav-link" href="product-list.html"> Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog-list.html"> Blog </a></li>
+        <li class="nav-item"> <a class="nav-link" href="contact.html"> Contact</a></li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+        <li class="nav-item"> <a class="nav-link" href="{% url 'login-signup' %}"> Welcome {{ user.username }}</a></li>
+        <li class="nav-item"> <a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+    {% else %}
+        <li class="nav-item"> <a class="nav-link" href="{% url 'login-signup' %}"> Login | Signup </a></li>
+    {% endif %}
+        <li class="nav-item"> <a class="nav-link" href="cart.html"> <i class="icofont icofont-cart-alt"></i> </a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 <header class="header-3 cs">

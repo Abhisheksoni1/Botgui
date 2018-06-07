@@ -1,7 +1,24 @@
 from django.db import models
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# from bot.forms import *
 # Create your models here.
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=100, null=False, blank=False)
+    email = models.EmailField(null=False, blank=False)
+    message = models.TextField(max_length=1500, default='', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    # class Meta:
+        # managed = False
+        # verbose_name_plural = 'contact'
+        # verbose_name = 'contact'
+        # db_table = 'contact'
 
 
 class EmailSubscribe(models.Model):
@@ -9,6 +26,9 @@ class EmailSubscribe(models.Model):
 
     def __str__(self):
         return self.email
+
+
+
 
 
 # # class Profile(models.Model):
