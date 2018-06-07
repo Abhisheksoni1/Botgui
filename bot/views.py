@@ -52,10 +52,6 @@ def comming_soon(request):
     return render(request, 'comming-soon.html')
 
 
-def contact(request):
-    return render(request, 'contact.html')
-
-
 # def login_signup(request):
 #     return render(request, 'login-signup.html')
 
@@ -138,7 +134,28 @@ def email_subscribe(request):
             form.save()
             return HttpResponse(json.dumps({'status': 'ok'}), content_type='application/json')
         # except Exception as e:
-            # print(e)
+        # print(e)
         # else:
     # # print('')
     return HttpResponse(json.dumps({'status': 'error'}), content_type='application/json')
+
+
+@csrf_exempt
+def contact(request):
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            print('valid')
+            form.save()
+            return HttpResponseRedirect('/index/')
+        # except Exception as e:
+        # print(e)
+        # else:
+    # # print('')
+        return HttpResponseRedirect('/contact/')
+    else:
+        form = ContactForm()
+    return render(request, 'contact.html', {'form': form})
+
+
+

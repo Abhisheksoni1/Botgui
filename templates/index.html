@@ -33,21 +33,21 @@
                 <li class="nav-item "><a class="nav-link dropdown-toggle" href="index.html"> Home</a></li>
                 <li class="nav-item "><a class="nav-link dropdown-toggle" href="services.html"> Services</a></li>
 
-                <li class="nav-item "><a class="nav-link" href="product-list.html"> Shop</a></li>
-                <li class="nav-item"><a class="nav-link" href="blog-list.html"> Blog </a></li>
-                <li class="nav-item"> <a class="nav-link" href="support.html"> Support</a></li>
-                <li class="nav-item"> <a class="nav-link" href="contact.html"> Contact</a></li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                {% if user.is_authenticated %}
-                <li class="nav-item"> <a class="nav-link" href="{% url 'login-signup' %}"> Welcome {{ user.username }}</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
-                {% else %}
-                <li class="nav-item"> <a class="nav-link" href="{% url 'login-signup' %}"> Login | Signup </a></li>
-                {% endif %}
-                <li class="nav-item"> <a class="nav-link" href="cart.html"> <i class="icofont icofont-cart-alt"></i> </a></li>
-            </ul>
-        </div>
+
+        <li class="nav-item "><a class="nav-link" href="product-list.html"> Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog-list.html"> Blog </a></li>
+        <li class="nav-item"> <a class="nav-link" href="contact.html"> Contact</a></li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+        <li class="nav-item"> <a class="nav-link" href="{% url 'login-signup' %}"> Welcome {{ user.username }}</a></li>
+        <li class="nav-item"> <a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+    {% else %}
+        <li class="nav-item"> <a class="nav-link" href="{% url 'login-signup' %}"> Login | Signup </a></li>
+    {% endif %}
+        <li class="nav-item"> <a class="nav-link" href="cart.html"> <i class="icofont icofont-cart-alt"></i> </a></li>
+      </ul>
+
     </div>
 </nav>
 <header class="header-1" id="particles-js">
