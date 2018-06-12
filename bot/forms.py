@@ -75,6 +75,14 @@ class EmailSubscribeForm(forms.ModelForm):
         model = EmailSubscribe
         fields = ('email',)
 
+    def save(self, commit=True):
+        subscribe = super(EmailSubscribeForm, self).save(commit=True)
+        subscribe.save()
+        print('form')
+        if commit:
+            subscribe.save()
+        return subscribe
+
 
 class ContactForm(forms.ModelForm):
 
@@ -85,8 +93,7 @@ class ContactForm(forms.ModelForm):
     def save(self, commit=True):
         contact = super(ContactForm, self).save(commit=True)
         contact.save()
-        print('form')
-        # user.set_password(self.cleaned_data["password1"])
+        # print('form')
         if commit:
             contact.save()
         return contact

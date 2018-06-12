@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from bot import views
 from django.contrib.auth.views import logout
+# from binance_feed.urls import
 
 
 
@@ -24,7 +25,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^services', views.services, name='services'),
     url(r'^index', views.index, name='index'),
-    url(r'^index-2', views.index2, name='index-2'),
+    url(r'^dashboard', views.dashboard, name='dashboard'),
     url(r'^index-3', views.index3, name='index-3'),
     url(r'^about', views.about, name='about'),
     url(r'^404', views.error, name='404'),
