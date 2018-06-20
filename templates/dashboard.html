@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} DashBoard {% endblock %}
+{% block content %}
+<header class="header-inner">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="intro-text">
+                    <h1 class="wow fadeInUp">DashBoard</h1>
+                    <h6>User DashBoard</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<script src="{% static 'js/umd/popper.min.js' %}" ></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.css' %}" >
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="{% static 'js/bootstrap-select.js' %}"></script>
+    <section onload="start()" class="section-padding">
+    <div class="container" style=";">
+        <div class="row">
+            <div class="" style=" padding-left: 2%; padding-right: 2%; ">
+                <div class="row" style="">
+                    <div class="form-group" style="margin: 5px;"><i class=""></i>
+                        <label for="exchange">Exchange</label> <br/>
+                        <select name="exchange" class="selectpicker" id="exchange"  placeholder="Exchange">
+                            <option value="">Binance</option>
+                        </select>
+                    </div >
+                    <div class="form-group" style="margin: 5px;" ><i class=""></i>
+                    <label for="currencypair">Currency Pair</label> <br/>
+                    <select name="currencypair" onchange="ticker()" data-live-search="true" data-live-search-style="startsWith" id="currencypair"  class="selectpicker"
+                            placeholder="Exchange">
+                        <!--<option value="">Binance</option>-->
+                        {% for currency in currency_pairs %}
+                        <!--<optgroup label="Picnic">-->
+                        <option value="{{ currency}}">{{ currency }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                </div>
+            </div>
+            <div class="" style=" width:56%; padding-left: 2%; ">
+                <div class="row" style="padding-left: 2%;">
+                    <div class="" style="float:left; padding-left: 2%;"><i class=""></i>
+                        <h5 class="" for="price">Price</h5>
+                        <input type="text" class="form-control" name="price" id="price"/>
+                    </div>
+                    <div style="float:left; padding-left: 2%;" class=""><i class=""></i>
+                        <h5 class="" for="priceChangePercent">Price Change Percent</h5>
+                        <input type="text" class="form-control" name="priceChangePercent" id="priceChangePercent"/>
+                    </div>
+                    <div style="float:left; padding-left: 2%;" class=""><i class=""></i>
+                        <h5 for="high">High</h5>
+                        <input type="text" class="form-control" name="high" id="high"/>
+                    </div>
+                </div>
+                <div class="row" style="padding-left: 2%;">
+                    <div class="" style="float:left; padding-left: 2%;"><i class="" ></i>
+                        <h5 for="low">Low</h5>
+                        <input type="text" class="form-control" name="low" id="low"/>
+                    </div>
+                    <div class="" style="float:left; padding-left: 2%;"><i class=""></i>
+                        <h5 for="buy">Buy</h5>
+                        <input type="text" class="form-control" name="buy" id="buy"><br>
+                    </div>
+                    <div class="" style="float:left; padding-left: 2%;"><i class=""></i>
+                        <h5 for="sell">Sell</h5>
+                        <input type="text" class="form-control" name="sell" id="sell"><br>
+                    </div>
+                </div>
+
+
+        </div>
+        </div>
+        <div id="tv_chart_container" ></div>
+    </div>
+</section>
+<script type="text/javascript" src="{% static 'charting_library-master/charting_library/charting_library.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'charting_library-master/datafeeds/udf/dist/polyfills.js' %}"></script>
+<script type="text/javascript" src="{% static 'charting_library-master/datafeeds/udf/dist/bundle.js' %}"></script>
+
+<script type="text/javascript">
+var widget
+<!--$(document).ready(function(){-->
+
+<!--})-->
+function start(){
+    <!--alert('start')-->
+    document.getElementById("currencypair").value = 'ETHBTC';
+    ticker();
+}
+            function ticker(){
+  var x = document.getElementById("currencypair").value;
+  $.get("binance_feed/ticker/"+x, function(data){
+  <!--alert(data['last_price']);-->
+  document.getElementById("price").value = data['last_price'];
+  document.getElementById("high").value = data['high_24h'];
+  document.getElementById("low").value = data['low_24h'];
+  document.getElementById("buy").value = data['bid'];
+  document.getElementById("sell").value = data['ask'];
+  document.getElementById("priceChangePercent").value = data['priceChangePercent'];
+  widget.setSymbol(x, 1, widget.onSymbolChange)
+  <!--alert('Hi');-->
+  });
+  }
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+			TradingView.onready(function()
+			{
+			     widget = window.tvWidget = new TradingView.widget({
+					fullscreen: false,
+					symbol: 'ETHBTC',
+					interval: '1',
+					container_id: "tv_chart_container",
+					//	BEWARE: no trailing slash is expected in feed URL
+					datafeed: new Datafeeds.UDFCompatibleDatafeed("http://127.0.0.1:8000/binance_feed", 10000),
+					library_path: "static/charting_library-master/charting_library/",
+					timezone: "Asia/Kolkata",
+					locale: getParameterByName('lang') || "en",
+					//	Regression Trend-related functionality is not implemented yet, so it's hidden for a while
+					drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
+					disabled_features: ["use_localstorage_for_settings"],
+					enabled_features: ["study_templates", "hide_left_toolbar_by_default",
+					 "trading_notifications", "trading_options"],
+					charts_storage_url: 'http://saveload.tradingview.com',
+                    charts_storage_api_version: "1.1",
+					client_id: 'demoexchange.tk',
+					user_id: 'public_user_id',
+					debug: true,
+					overrides: {
+					"mainSeriesProperties.candleStyle.upColor": "#31bc8a",
+					"mainSeriesProperties.candleStyle.downColor": "#e83020"
+					}
+
+				});
+			});
+
+
+</script>
+{% endblock %}

@@ -1,16 +1,18 @@
 import json
 from django.utils import timezone
 from django.http import HttpResponse
+from django.shortcuts import render
 
 from binance_feed.models import History
+from binance_feed.api import binance
+
 
 SYMBOLS = ["LTCBTC", "ETHBTC", "LTCETH", "XRPBTC", "XRPETH"]
 
 
 def config(request):
     data = {
-        'supported_resolutions': ["1S",
-                                  "1",
+        'supported_resolutions': ["1",
                                   "5",
                                   "15",
                                   "60",
@@ -31,36 +33,36 @@ def symbols(request):
     results = {}
     symbol = request.GET['symbol'].upper()
     # print(request.symbol)
-    if symbol in SYMBOLS:
-        results["name"] = symbol
-        results["ticker"] = symbol
-        results["description"] = symbol
-        results["type"] = ""
-        results["session"] = "24x7"
-        results["exchange"] = ""
-        results["listed_exchange"] = ""
-        results["timezone"] = "UTC"
-        results["minmov"] = 0.1
-        results["pricescale"] = 100000000
-        results["minmove2"] = 0
-        results["fractional"] = False
-        results["has_intraday"] = True
-        results["supported_resolutions"] = "1S", "1", "5", "15", "60", "1D",
-        results["intraday_multipliers"] = "1",
-        results["has_seconds"] = True
-        results["seconds_multipliers"] = ""
-        results["has_daily"] = False
-        results["has_weekly_and_monthly"] = False
-        results["has_empty_bars"] = False
-        results["force_session_rebuild"] = ""
-        results["has_no_volume"] = False
-        results["volume_precision"] = 4
-        results["data_status"] = "streaming"
-        results["expired"] = ""
-        results["expiration_date"] = ""
-        results["sector"] = ""
-        results["industry"] = ""
-        results["currency_code"] = symbol
+    # if symbol in SYMBOLS:
+    results["name"] = symbol
+    results["ticker"] = symbol
+    results["description"] = symbol
+    results["type"] = ""
+    results["session"] = "24x7"
+    results["exchange"] = ""
+    results["listed_exchange"] = ""
+    results["timezone"] = "UTC"
+    results["minmov"] = 0.1
+    results["pricescale"] = 100000000
+    results["minmove2"] = 0
+    results["fractional"] = False
+    results["has_intraday"] = True
+    results["supported_resolutions"] = "1", "5", "15", "60", "1D",
+    results["intraday_multipliers"] = "1",
+    results["has_seconds"] = False
+    results["seconds_multipliers"] = ""
+    results["has_daily"] = False
+    results["has_weekly_and_monthly"] = False
+    results["has_empty_bars"] = False
+    results["force_session_rebuild"] = ""
+    results["has_no_volume"] = False
+    results["volume_precision"] = 4
+    results["data_status"] = "streaming"
+    results["expired"] = ""
+    results["expiration_date"] = ""
+    results["sector"] = ""
+    results["industry"] = ""
+    results["currency_code"] = symbol
     response = HttpResponse(json.dumps(results), content_type='application/json')
     response['Access-Control-Allow-Origin'] = '*'
     response['Access-Control-Allow-Methods'] = 'GET'
@@ -101,7 +103,6 @@ def history(request):
         to_date = request.GET['to']
         resolution = request.GET['resolution']
         r_dict = {
-            '1S': 1,
             '1': 60,
             '5': 300,
             '15': 900,
@@ -159,3 +160,20 @@ def time(request):
     return response
 
 
+def ticker(request, symbol):
+    if request.user.is_authenticated():
+        # symbol = request.GET['symbol']
+        print(symbol)
+        obj = binance.Binance()
+        response = obj.ticker(symbol)
+        print(response)
+    return HttpResponse(json.dumps(response), content_type='application/json')
+    # if request.method == "POST":
+    #     form = EmailSubscribeForm(request.POST)
+    #     if form.is_valid():
+    #         print('valid')
+    #         form.save()
+    #         return HttpResponseRedirect('/index/')
+        # except Exception as e:
+        # print(e)
+        # else:

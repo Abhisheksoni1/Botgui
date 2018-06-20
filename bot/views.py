@@ -10,14 +10,21 @@ from django.views.decorators.csrf import csrf_exempt
 # from user.models import Profile
 
 from bot.forms import *
+from binance_feed.models import *
+from binance_feed.api.binance import *
 
 
 def index(request):
     return render(request, "index.html")
 
 
-def index2(request):
-    return render(request, "index-2.html")
+def dashboard(request):
+    # print('1111')
+    currency_pairs = History.objects.order_by('symbol').values_list('symbol', flat=True).distinct()
+    # print(currency_pairs)
+    # print(len(currency_pairs))
+
+    return render(request, "dashboard.html", {'currency_pairs': currency_pairs})
 
 
 def index3(request):
@@ -91,7 +98,7 @@ def login_signup(request):
                 user.save()
                 login(request, user)
                 # print(user)
-                return redirect('index')
+                return redirect('dashboard')
         else:
             # print(form.errors)
             msg = 'Please check your details!'
@@ -116,7 +123,7 @@ def login_view(request):
             raw_password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('index')
+            return redirect('dashboard')
         else:
             return render(request, 'login-signup.html', {'loginErrorMsg': 'username password not match', 'form': form})
     else:
@@ -130,14 +137,14 @@ def email_subscribe(request):
     if request.method == "POST":
         form = EmailSubscribeForm(request.POST)
         if form.is_valid():
-            # print('valid')
+            print('valid')
             form.save()
-            return HttpResponse(json.dumps({'status': 'ok'}), content_type='application/json')
+            return HttpResponseRedirect('/index/')
         # except Exception as e:
         # print(e)
         # else:
     # # print('')
-    return HttpResponse(json.dumps({'status': 'error'}), content_type='application/json')
+    return render(request, 'index.html', {'form': form})
 
 
 @csrf_exempt
@@ -145,7 +152,7 @@ def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            print('valid')
+            # print('valid')
             form.save()
             return HttpResponseRedirect('/index/')
         # except Exception as e:
