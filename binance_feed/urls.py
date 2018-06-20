@@ -19,7 +19,8 @@ from binance_feed import views
 urlpatterns = [
     url(r'^config$', views.config, name='config'),
     url(r'^time$', views.time, name='time'),
-    url('^symbols', views.symbols, name='symbols'),
-    url('^search', views.search, name='search'),
-    url('^history', views.history, name='history'),
+    url(r'^symbols', views.symbols, name='symbols'),
+    url(r'^search', views.search, name='search'),
+    url(r'^history', views.history, name='history'),
+    url(r'^ticker/(?P<symbol>\w+)/$', views.ticker, name='ticker'),
 ]

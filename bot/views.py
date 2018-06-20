@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from bot.forms import *
 from binance_feed.models import *
+from binance_feed.api.binance import *
 
 
 def index(request):
