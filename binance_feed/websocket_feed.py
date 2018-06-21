@@ -1,6 +1,6 @@
 import ssl
 import websocket
-import _thread as thread
+import thread
 import time
 import json
 from binance_feed import insert_to_db
