@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'Botgui.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'tradebot',
         'USER': 'django',
         'PASSWORD': 'tradebot@123',
