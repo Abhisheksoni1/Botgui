@@ -16,10 +16,27 @@
 </header>
 <script src="{% static 'js/umd/popper.min.js' %}" ></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">-->
 <link rel="stylesheet" href="{% static 'css/bootstrap-select.css' %}" >
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{% static 'js/bootstrap-select.js' %}"></script>
+<style>
+table {
+    font-family: arial, sans-serif;
+    width: 100%;
+}
+
+td, th {
+    text-align: left;
+    padding: 8px;
+}
+table, tr, td {
+    border: none;
+}
+
+
+</style>
     <section onload="start()" class="section-padding">
     <div class="container" style=";">
         <div class="row">
@@ -31,11 +48,11 @@
                             <option value="">Binance</option>
                         </select>
                     </div >
-                    <div class="form-group" style="margin: 5px;" ><i class=""></i>
+                    <div class="form-group" style="margin: 5px;"  ><i class=""></i>
                     <label for="currencypair">Currency Pair</label> <br/>
-                    <select name="currencypair" onchange="ticker()" data-live-search="true" data-live-search-style="startsWith" id="currencypair"  class="selectpicker"
+                    <select name="currencypair" onchange="changeCurrencyPair()" data-live-search="true" data-live-search-style="startsWith" id="currencypair"  class="selectpicker"
                             placeholder="Exchange">
-                        <!--<option value="">Binance</option>-->
+                        <option value="BTCUSDT" selected>BTCUSDT</option>
                         {% for currency in currency_pairs %}
                         <!--<optgroup label="Picnic">-->
                         <option value="{{ currency}}">{{ currency }}</option>
@@ -44,40 +61,93 @@
                 </div>
                 </div>
             </div>
-            <div class="" style=" width:56%; padding-left: 2%; ">
-                <div class="row" style="padding-left: 2%;">
-                    <div class="" style="float:left; padding-left: 2%;"><i class=""></i>
-                        <h5 class="" for="price">Price</h5>
-                        <input type="text" class="form-control" name="price" id="price"/>
-                    </div>
-                    <div style="float:left; padding-left: 2%;" class=""><i class=""></i>
-                        <h5 class="" for="priceChangePercent">Price Change Percent</h5>
-                        <input type="text" class="form-control" name="priceChangePercent" id="priceChangePercent"/>
-                    </div>
-                    <div style="float:left; padding-left: 2%;" class=""><i class=""></i>
-                        <h5 for="high">High</h5>
-                        <input type="text" class="form-control" name="high" id="high"/>
-                    </div>
-                </div>
-                <div class="row" style="padding-left: 2%;">
-                    <div class="" style="float:left; padding-left: 2%;"><i class="" ></i>
-                        <h5 for="low">Low</h5>
-                        <input type="text" class="form-control" name="low" id="low"/>
-                    </div>
-                    <div class="" style="float:left; padding-left: 2%;"><i class=""></i>
-                        <h5 for="buy">Buy</h5>
-                        <input type="text" class="form-control" name="buy" id="buy"><br>
-                    </div>
-                    <div class="" style="float:left; padding-left: 2%;"><i class=""></i>
-                        <h5 for="sell">Sell</h5>
-                        <input type="text" class="form-control" name="sell" id="sell"><br>
-                    </div>
-                </div>
-
 
         </div>
+        <div class="row">
+            <div id="tv_chart_container" class="col-md-9"></div>
+            <div class="col-md-3" style="">
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <h5 class="" for="price">Price</h5>
+                        </td>
+                        <td>
+                            <h5 class="" for="priceChangePercent" style="float: right;">Change</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label  name="price" id="price"></label>
+                        </td>
+                        <td>
+                            <label name="priceChangePercent" id="priceChangePercent" style="float: right;" class=""></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 for="high">High</h5>
+                        </td>
+                        <td>
+                            <h5 for="low" style="float: right;">Low</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label name="high" style="float: left;" id="high"></label>
+                        </td>
+                        <td>
+                            <label name="low" style="float: right;" id="low"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 for="buy">Buy</h5>
+                        </td>
+                        <td>
+                            <h5 for="sell" style="float: right;">Sell</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="float: left;" name="buy" id="buy"></label>
+                        </td>
+                        <td>
+                            <label name="sell" id="sell" style="float: right;"></label>
+                        </td>
+                    </tr>
+                </table>
+                <!--<div class="row" style="">-->
+                    <!--&lt;!&ndash;<div class="col-md-4" ><i class=""></i>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<h5 class="" for="price">Price</h5>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<label style="float: left;" name="price" id="price"></label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="col-md-8"><i class=""></i>-->
+                        <!--<h5 class="" for="priceChangePercent" style="float: right;">Price Change Percent</h5>-->
+                        <!--<label name="priceChangePercent" id="priceChangePercent" style="float: right;" class=""></label>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row" style="padding-left: 2%;">-->
+                    <!--<div class="col-md-6" ><i class=""></i>-->
+                        <!--<h5 for="high">High</h5>-->
+                        <!--<label name="high" style="float: left;" id="high"></label>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6" ><i class="" ></i>-->
+                        <!--<h5 for="low" style="float: right;">Low</h5>-->
+                        <!--<label name="low" style="float: right;" id="low"></label>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row" style="padding-left: 2%;">-->
+                    <!--<div class="col-md-6" ><i class=""></i>-->
+                        <!--<h5 for="buy">Buy</h5>-->
+                        <!--<label style="float: left;" name="buy" id="buy"></label>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6" ><i class=""></i>-->
+                        <!--<h5 for="sell" style="float: right;">Sell</h5>-->
+                        <!--<label name="sell" id="sell" style="float: right;"></label>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
         </div>
-        <div id="tv_chart_container" ></div>
     </div>
 </section>
 <script type="text/javascript" src="{% static 'charting_library-master/charting_library/charting_library.min.js' %}"></script>
@@ -86,29 +156,7 @@
 
 <script type="text/javascript">
 var widget
-<!--$(document).ready(function(){-->
-
-<!--})-->
-function start(){
-    <!--alert('start')-->
-    document.getElementById("currencypair").value = 'ETHBTC';
-    ticker();
-}
-            function ticker(){
-  var x = document.getElementById("currencypair").value;
-  $.get("binance_feed/ticker/"+x, function(data){
-  <!--alert(data['last_price']);-->
-  document.getElementById("price").value = data['last_price'];
-  document.getElementById("high").value = data['high_24h'];
-  document.getElementById("low").value = data['low_24h'];
-  document.getElementById("buy").value = data['bid'];
-  document.getElementById("sell").value = data['ask'];
-  document.getElementById("priceChangePercent").value = data['priceChangePercent'];
-  widget.setSymbol(x, 1, widget.onSymbolChange)
-  <!--alert('Hi');-->
-  });
-  }
-            function getParameterByName(name) {
+function getParameterByName(name) {
                 name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
                 var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
                         results = regex.exec(location.search);
@@ -117,10 +165,12 @@ function start(){
 
 			TradingView.onready(function()
 			{
+			    var symbol = document.getElementById("currencypair").value;
 			     widget = window.tvWidget = new TradingView.widget({
 					fullscreen: false,
-					symbol: 'ETHBTC',
-					interval: '1',
+
+					symbol: symbol,
+					interval: '5',
 					container_id: "tv_chart_container",
 					//	BEWARE: no trailing slash is expected in feed URL
 					datafeed: new Datafeeds.UDFCompatibleDatafeed("http://159.65.252.81/binance_feed", 10000),
@@ -144,6 +194,36 @@ function start(){
 
 				});
 			});
+$(document).ready(
+ function() {
+ <!--alert('start')-->
+ ticker();
+ setInterval(function() {
+    ticker();
+    <!--alert('New price')-->
+ }, 10000);  //Delay here = 5 seconds
+});
+
+  function ticker(){
+      var x = document.getElementById("currencypair").value;
+      $.get("binance_feed/ticker/"+x, function(data){
+      <!--alert(data['last_price']);-->
+      document.getElementById("price").innerHTML = data['last_price'];
+      document.getElementById("high").innerHTML = data['high_24h'];
+      document.getElementById("low").innerHTML = data['low_24h'];
+      document.getElementById("buy").innerHTML = data['bid'];
+      document.getElementById("sell").innerHTML = data['ask'];
+      document.getElementById("priceChangePercent").innerHTML = data['priceChangePercent'];
+  <!--alert('Hi');-->
+  });
+  return 1;
+  }
+    function changeCurrencyPair(){
+    <!--alert('changeCurrencyPair');-->
+    var x = document.getElementById("currencypair").value;
+    widget.setSymbol(x, 1, widget.onSymbolChange)
+    ticker();
+    }
 
 
 </script>
