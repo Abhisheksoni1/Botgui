@@ -1,8 +1,6 @@
 import json
 from django.utils import timezone
 from django.http import HttpResponse
-from django.shortcuts import render
-
 from binance_feed.models import History
 from binance_feed.api import binance
 
@@ -119,8 +117,10 @@ def history(request):
             'l': [],
             'v': []
         }
-        data = list(History.objects.filter(symbol=symbol, time__gte=from_date, time__lte=to_date))
-        length = len(data)
+        data = History.objects.filter(symbol=symbol, time__gte=from_date, time__lte=to_date)
+
+        length = data.count()
+        data = list(map(lambda j: j, data))
         i = 0
         while i < length:
             result['t'].append(int(from_date))
